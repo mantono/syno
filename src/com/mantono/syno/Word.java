@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class Word
 {
+	private final static int MAX_DISTANCE = 3;
+	
 	private final String word;
 	private final Map<String, Double> weights;
 
@@ -22,7 +24,7 @@ public class Word
 		String[] words = context.split("\\s+");
 		final int wordIndex = findIndex(words);
 
-		for(int distance = 1; distance < 3; distance++)
+		for(int distance = 1; distance < MAX_DISTANCE; distance++)
 		{
 			final double weight = Math.pow(2, 1 - distance);
 			final int left = wordIndex - distance;
