@@ -59,4 +59,16 @@ public class Word
 	{
 		return word.toString() + " " + weights.toString();
 	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		return word.equals(obj);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return word.hashCode();
+	}
 }
