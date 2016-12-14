@@ -1,14 +1,16 @@
 package com.mantono.syno;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Word
+public class Word implements Serializable
 {
 	private final static int MAX_DISTANCE = 3;
 	
 	private final String word;
 	private final Map<String, Double> weights;
+	private int count = 0;
 
 	public Word(final String word)
 	{
@@ -36,6 +38,7 @@ public class Word
 			if(right < words.length)
 				addWeight(words[right], weight);
 		}
+		count++;
 	}
 
 	private void addWeight(String string, double additionalWeight)
@@ -53,7 +56,12 @@ public class Word
 				return i;
 		return -1;
 	}
-	
+
+	public int getCount()
+	{
+		return count;
+	}
+
 	@Override
 	public String toString()
 	{
