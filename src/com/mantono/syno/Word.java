@@ -2,7 +2,11 @@ package com.mantono.syno;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class Word implements Serializable
 {
@@ -61,10 +65,37 @@ public class Word implements Serializable
 	{
 		return count;
 	}
+	
+	public SortedMap<Double, String> getContexts(final WordFrequency externalWeights)
+	{
+		SortedMap<Double, String> topContexts = new TreeMap<Double, String>();
+		Iterator<Entry<String, Double>> iter = weights.entrySet().iterator();
+		while(iter.hasNext())
+		{
+			Entry<String, Double> entry = iter.next();
+			final String word = entry.getKey();
+			final double newWeight = entry.getValue()*externalWeights.getWeight(word);
+			topContexts.put(newWeight, word);
+		}
+
+		return topContexts;
+	}
 
 	@Override
 	public String toString()
 	{
 		return word.toString() + " " + weights.toString();
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		return word.equals(obj);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return word.hashCode();
 	}
 }
