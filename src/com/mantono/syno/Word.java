@@ -28,9 +28,11 @@ public class Word implements Serializable
 		if(!context.contains(word))
 			throw new IllegalArgumentException("Missing the word " + word + " in context.");
 		String[] words = context.split("\\s+");
+		if(words.length < 2)
+			return;
 		final int wordIndex = findIndex(words);
 
-		for(int distance = 1; distance < MAX_DISTANCE; distance++)
+		for(int distance = 1; distance <= MAX_DISTANCE; distance++)
 		{
 			final double weight = Math.pow(2, 1 - distance);
 			final int left = wordIndex - distance;

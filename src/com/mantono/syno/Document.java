@@ -1,6 +1,8 @@
 package com.mantono.syno;
 
-public interface Document
+import java.io.Serializable;
+
+public interface Document extends Serializable
 {
 	public final String SENTENCE_SEPRATOR = "([!?.]+\\s+)|(\\n+)";
 	

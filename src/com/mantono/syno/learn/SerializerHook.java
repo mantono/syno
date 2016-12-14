@@ -18,7 +18,10 @@ public class SerializerHook implements Runnable
 	public void run()
 	{
 		for(Serializer s : serializers)
+		{
 			s.save();
+			System.out.println("Saved " + s.toString());
+		}
 	}
 	
 	public boolean add(Serializer s)

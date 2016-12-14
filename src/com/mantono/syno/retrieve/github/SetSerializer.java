@@ -26,6 +26,8 @@ public class SetSerializer<T> implements Serializer
 	{
 			if(diskData != null && ramData.size() == diskData.size())
 				return;
+			if(ramData == null)
+				throw new IllegalStateException("Trying to save an object before it is loaded.");
 			saver.save(ramData);
 	}
 

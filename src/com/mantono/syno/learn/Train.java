@@ -18,8 +18,10 @@ public class Train
 	public static void main(String[] args)
 	{
 		Set<Repository> repos = new HashSet<Repository>();
-		repos.add(new Repository("mantono", "BachelorThesis"));
-		repos.add(new Repository("mantono", "DuplicateSearcher"));
+		repos.add(new Repository("golang", "go"));
+		repos.add(new Repository("Microsoft", "vscode"));
+		repos.add(new Repository("apple", "cups"));
+		repos.add(new Repository("WhisperSystems", "Signal-Android"));
 		
 		MapSerializer<String, Word> ms = new MapSerializer<String, Word>(new File("knowledge"));
 		SetSerializer<Document> ss = new SetSerializer<Document>(new File("addedDocumentIds"));

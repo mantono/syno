@@ -94,19 +94,19 @@ public class Retriever implements Runnable
 		final int issuesOnGithub = getIssueCount(response);
 
 		int page = 1 + (issues.size() / 100);
+		int previousSize = -1;
 		
-		while(issues.size() < issuesOnGithub)
+		while(previousSize < issues.size() )
 		{
+			previousSize = issues.size();
 			Resource issueRequest = new Resource(Verb.GET, "repos/" + repo.getOwner() + "/" + repo.getName()
 					+ "/issues?q=sort=created&direction=asc&state=all&page=" + page + "&per_page=100");
 			Future<Response> issueFuture = client.submitRequest(issueRequest);
 			Set<Issue> pageIssues = parseIssues(issueFuture, repoId);
-			
 			issues.addAll(pageIssues);
 			page++;
-			System.out.println(issues.size() + " of " + issuesOnGithub);
-			if(issues.isEmpty())
-				break;
+
+			System.out.println(issues.size() + " of approximately " + issuesOnGithub);
 		}
 		
 		return issues;
@@ -147,7 +147,6 @@ public class Retriever implements Runnable
 				break;
 
 			final JsonNode jsonIssue = node.get(i);
-			System.out.println(jsonIssue);
 			final int number = jsonIssue.get("number").asInt();
 			final String body = jsonIssue.get("body_text").asText();
 
@@ -166,6 +165,7 @@ public class Retriever implements Runnable
 
 	private void save(Repository repo, Set<Issue> issues)
 	{
-		
+		Serializer s = serializers.get(repo);
+		s.save();
 	}
 }
